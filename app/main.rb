@@ -1,9 +1,10 @@
 require_relative 'cards'
+require_relative 'war_function'
 
-cards = Cards.new
-cards.number.each do |design, numbers|
-  numbers.each do |number|
-    puts "#{design}の#{number}"
-  end
-end
-puts "戦争を開始します"
+game = WarFunction.new
+puts "戦争を開始します。"
+#cards.all_cards #トランプ全種の作成
+puts "カードが配られました。"
+#cards.shuffle_cards #プレイヤーにカードを配る
+
+game.war
