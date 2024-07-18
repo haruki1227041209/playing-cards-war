@@ -13,7 +13,7 @@ class PlayerCards
   end
 
   def distribute_cards
-    shuffle_cards.each_with_index do |card, index|
+    @shuffle_cards.each_with_index do |card, index|
       if (index + 1) % 2 == 0
         @player_2 << card
       else
