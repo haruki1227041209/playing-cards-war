@@ -1,19 +1,25 @@
-require_relative 'cards.rb'
+# frozen_string_literal: true
+
+require_relative "cards"
 
 class PlayerCards
+  attr_reader :cards, :player_1, :player_2
+
   def initialize
     @cards = Cards.new
-    @shuffle_cards = shuffle_cards
-    @player_1 = []
-    @player_2 = []
+    @create_cards = create_cards
+    @create_cards.shuffle!
+    distribute_cards
   end
 
-  def shuffle_cards
-    @cards.create_cards.shuffle
+  def create_cards
+    @cards.create_cards
   end
 
   def distribute_cards
-    @shuffle_cards.each_with_index do |card, index|
+    @player_1 = []
+    @player_2 = []
+    @create_cards.each_with_index do |card, index|
       if (index + 1) % 2 == 0
         @player_2 << card
       else
@@ -24,10 +30,3 @@ class PlayerCards
     @player_2.reverse
   end
 end
-
-cards = PlayerCards.new
-cards.shuffle_cards
-cards.distribute_cards
-p cards
-
-
