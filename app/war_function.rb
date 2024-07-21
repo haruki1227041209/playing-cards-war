@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "player_cards"
-#require 'debug'
+# require 'debug'
 
 class WarFunction
   attr_accessor :player_cards
@@ -19,7 +19,7 @@ class WarFunction
     puts "戦争を開始します。"
     puts "カードが配られました。"
     until @player1.empty? || @player2.empty?
-      #binding.break
+      # binding.break
       @save_player1 = @player1[0].dup # 手札を保存
       @save_player2 = @player2[0].dup
       result = war_result # 結果を先に計算
