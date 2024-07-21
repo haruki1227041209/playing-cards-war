@@ -6,8 +6,8 @@ require_relative "player_cards"
 class WarFunction
   attr_accessor :player_cards
 
-  def initialize
-    @player_cards = PlayerCards.new
+  def initialize(number_players)
+    @player_cards = PlayerCards.new(number_players)
     @player1 = @player_cards.player_1
     @player2 = @player_cards.player_2
   end
@@ -54,6 +54,7 @@ class WarFunction
       puts "プレイヤー2が1位、プレイヤー1が2位です。"
     end
     puts "戦争を終了します。"
+    puts @player_cards.number_players
 
 =begin
     p @player1

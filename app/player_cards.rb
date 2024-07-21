@@ -3,9 +3,10 @@
 require_relative "cards"
 
 class PlayerCards
-  attr_reader :cards, :player_1, :player_2
+  attr_reader :cards, :number_players
 
-  def initialize
+  def initialize(number_players)
+    @number_players = number_players
     @cards = Cards.new
     @create_cards = create_cards
     @create_cards.shuffle!
@@ -16,17 +17,24 @@ class PlayerCards
     @cards.create_cards
   end
 
+  def players_array
+    Array.new(@number_players).map{ [] }
+  end
+
   def distribute_cards
-    @player_1 = []
-    @player_2 = []
+    @players_array = players_array
     @create_cards.each_with_index do |card, index|
-      if (index + 1) % 2 == 0
-        @player_2 << card
-      else
-        @player_1 << card
-      end
+      @players_array[index % @players_array.length] << card
     end
-    @player_1.reverse
-    @player_2.reverse
+    p @players_array[0].length
+    p @players_array[1].length
+    p @players_array[2].length
+    p @players_array[3].length
+    p @players_array[4].length
+    #@player_1.reverse
+    #@player_2.reverse
   end
 end
+
+cards = PlayerCards.new(5)
+p cards
