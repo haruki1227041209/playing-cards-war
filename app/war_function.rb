@@ -12,6 +12,9 @@ class WarFunction
   end
 
   def war
+    @get_player1 = []
+    @get_player2 = []
+    @save_player_card = []
     puts "戦争を開始します。"
     puts "カードが配られました。"
     @player1.length.times do |battle_time|
@@ -19,19 +22,42 @@ class WarFunction
       change_cards(battle_time) # 該当する手札をA,J,Q,Kに変換
 
       puts "戦争！"
+      #p battle_time
+      #p @player1, @player2
       puts "プレイヤー1のカードは#{@player1[battle_time][0]}の#{@player1[battle_time][1]}です。"
       puts "プレイヤー2のカードは#{@player2[battle_time][0]}の#{@player2[battle_time][1]}です。" # 手札を表示
       puts result
-      break unless @player1[battle_time][1] == @player2[battle_time][1]
+      # break unless @player1[battle_time][1] == @player2[battle_time][1]
     end
+    p @save_player_card
+    p @get_player1
+    p @get_player2
+    p @get_player1.length
+    p @get_player2.length
   end
 
   def war_result(battle_time)
     if @player1[battle_time][1] == @player2[battle_time][1]
+      @save_player_card << @player1[battle_time]
+      @save_player_card << @player2[battle_time]
       "引き分けです。"
     elsif @player1[battle_time][1] > @player2[battle_time][1]
+      unless @save_player_card.empty?
+        @get_player1 += @save_player_card
+        @save_player_card = []
+        p @get_player1
+      end
+      @get_player1 << @player1[battle_time]
+      @get_player1 << @player2[battle_time]
       "プレイヤー1が勝ちました。\n戦争を終了します。"
     else
+      unless @save_player_card.empty?
+        @get_player2 += @save_player_card
+        @save_player_card = []
+        p @get_player2
+      end
+      @get_player2 << @player1[battle_time]
+      @get_player2 << @player2[battle_time]
       "プレイヤー2が勝ちました。\n戦争を終了します。"
     end
   end
