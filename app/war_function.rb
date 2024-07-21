@@ -29,6 +29,8 @@ class WarFunction
       puts result
       # break unless @player1[battle_time][1] == @player2[battle_time][1]
     end
+    p @player1
+    p @player2
     p @save_player_card
     p @get_player1
     p @get_player2
@@ -43,22 +45,32 @@ class WarFunction
       "引き分けです。"
     elsif @player1[battle_time][1] > @player2[battle_time][1]
       unless @save_player_card.empty?
+        get_cards = @save_player_card.length / 2 + 1
         @get_player1 += @save_player_card
         @save_player_card = []
+        @get_player1 << @player1[battle_time]
+        @get_player1 << @player2[battle_time]
         p @get_player1
+        "プレイヤー1が勝ちました。プレイヤー1はカードを#{get_cards}枚もらいました。"
+      else
+        @get_player1 << @player1[battle_time]
+        @get_player1 << @player2[battle_time]
+        "プレイヤー1が勝ちました。プレイヤー1はカードを1枚もらいました。"
       end
-      @get_player1 << @player1[battle_time]
-      @get_player1 << @player2[battle_time]
-      "プレイヤー1が勝ちました。\n戦争を終了します。"
     else
       unless @save_player_card.empty?
+        get_cards = @save_player_card.length / 2 + 1
         @get_player2 += @save_player_card
         @save_player_card = []
+        @get_player2 << @player1[battle_time]
+        @get_player2 << @player2[battle_time]
         p @get_player2
+        "プレイヤー2が勝ちました。プレイヤー2はカードを#{get_cards}枚もらいました。"
+      else
+        @get_player2 << @player1[battle_time]
+        @get_player2 << @player2[battle_time]
+        "プレイヤー2が勝ちました。プレイヤー2はカードを1枚もらいました。"
       end
-      @get_player2 << @player1[battle_time]
-      @get_player2 << @player2[battle_time]
-      "プレイヤー2が勝ちました。\n戦争を終了します。"
     end
   end
 
