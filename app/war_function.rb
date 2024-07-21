@@ -8,26 +8,38 @@ class WarFunction
 
   def initialize(number_players)
     @player_cards = PlayerCards.new(number_players)
-    @player1 = @player_cards.player_1
-    @player2 = @player_cards.player_2
+    @players_array = @player_cards.players_array
+    @number_players = @player_cards.number_players
+    #@player1 = @player_cards.player_1
+    #@player2 = @player_cards.player_2
   end
 
   def war
-    @get_player1 = []
-    @get_player2 = []
+    @get_player = Array.new(@number_players).map{ [] }
+    #@get_player1 = []
+    #@get_player2 = []
     @save_player_card = []
     puts "戦争を開始します。"
     puts "カードが配られました。"
-    until @player1.empty? || @player2.empty?
+    check_empty
+    unless @check_empty == true
+    #until @player1.empty? || @player2.empty?
       # binding.break
-      @save_player1 = @player1[0].dup # 手札を保存
-      @save_player2 = @player2[0].dup
+      @save_players_array = Array.new(@number_players).map{ [] }
+      @players_array.each do |player_array|
+        @save_players_array[i] = player_array[0].dup
+      end
+      #@save_player1 = @player1[0].dup # 手札を保存
+      #@save_player2 = @player2[0].dup
       result = war_result # 結果を先に計算
       change_cards(@save_player1, @save_player2) # 該当する手札をA,J,Q,Kに変換
 
       puts "戦争！"
-      puts "プレイヤー1のカードは#{@save_player1[0]}の#{@save_player1[1]}です。"
-      puts "プレイヤー2のカードは#{@save_player2[0]}の#{@save_player2[1]}です。" # 手札を表示
+      @save_players_array.each_with_index do |save_player_array, index|
+        puts "プレイヤー#{index + 1}のカードは#{@save_player_array[0]}の#{@save_player_array[1]}です。"
+      end
+      #puts "プレイヤー1のカードは#{@save_player1[0]}の#{@save_player1[1]}です。"
+      #puts "プレイヤー2のカードは#{@save_player2[0]}の#{@save_player2[1]}です。" # 手札を表示
       puts result
 
       if @player1.empty?
@@ -129,4 +141,16 @@ class WarFunction
     save_player1[1] = "K" if save_player1[1] == 13
     save_player2[1] = "K" if save_player2[1] == 13
   end
+
+  def check_empty
+    @check_empty = false
+    @players_array.each do |player_array| # ０枚になっている手札があるか
+      if player_array.empty?
+        @check_empty = true
+      end
+    end
+  end
 end
+
+war = WarFunction.new(2)
+p war
